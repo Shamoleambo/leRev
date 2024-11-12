@@ -3,6 +3,7 @@ package com.tidz.leRev.model;
 import jakarta.persistence.*;
 
 import java.time.Year;
+import java.util.List;
 
 @Entity
 public class Owner {
@@ -20,6 +21,9 @@ public class Owner {
     private Year birthYear;
     @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Car> cars;
 
     public Owner() {
 

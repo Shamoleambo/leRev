@@ -21,6 +21,10 @@ public class Car {
     @Column(name = "color")
     private String color;
 
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
     public Car() {
 
     }
