@@ -1,6 +1,7 @@
 package com.tidz.leRev.service;
 
 import com.tidz.leRev.exception.EmptyResourceError;
+import com.tidz.leRev.exception.InternalServerError;
 import com.tidz.leRev.model.Car;
 import com.tidz.leRev.repository.CarRepository;
 import org.junit.jupiter.api.Assertions;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -33,5 +35,16 @@ public class CarServiceTest {
             service.add(car);
         });
 
+    }
+
+    @Test
+    void serviceShouldThrowAnErrorIfRepositoryFails() {
+        Car car = new Car();
+
+        Mockito.when(repository.save(car)).thenThrow(InternalServerError.class);
+
+        Assertions.assertThrows(InternalServerError.class, () -> {
+            service.add(car);
+        });
     }
 }
