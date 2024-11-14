@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarService {
 
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     @Autowired
     public CarService(CarRepository carRepository) {
@@ -21,7 +21,6 @@ public class CarService {
             throw new EmptyResourceError("A car must be provided");
         }
 
-        carRepository.save(newCar);
-        return null;
+        return carRepository.save(newCar);
     }
 }
