@@ -20,6 +20,8 @@ public class CarService {
         if (newCar == null) {
             throw new EmptyResourceError("A car must be provided");
         }
+
+        carRepository.save(newCar);
         return null;
     }
 }
